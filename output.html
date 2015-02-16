@@ -20,23 +20,8 @@
     </div>
     <div class="container">
         <div class="row">
-            <div class="col-md-12 col-sm-12 col-lg-12">
-                <table class="table table-bordered" id="main-table">
-                    <thead>
-                        <tr>
-                            <th class="text-left" style="width: 90px">ASIN</th>
-                            <th style="width: 100%">Product Name</th>
-                            <th style="width: 190px">Category</th>
-                            <th class="text-right" style="width: 90px">Price</th>
-                            <th style="width: 220px">Product Rating</th>
-                            <th style="width: 180px">Customer Avg. Rating</th>
-                            <th style="width: 180px">Fetched URL</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Output -->
-                    </tbody>
-                </table>
+            <div class="col-md-12 col-sm-12 col-lg-12" id="output">
+                <!-- OUTPUT -->
             </div>
         </div>
     </div>
@@ -47,8 +32,8 @@
             var trs = $('table tr');
 
             if (trs.length > 0) {
-                var priceBlocks = trs.find('td.text-right'),
-                    asinBlocks = trs.find('td.text-left'),
+                var priceBlocks = $('td.price'),
+                    asinBlocks = $('td.asin'),
                     priceMissCount = 0,
                     asinMissCount = 0;
 
@@ -66,11 +51,10 @@
                     }
                 }
 
-                $('#numberOfBlock').html(trs.length - 1);
+                $('#numberOfBlock').html($('table').length);
                 $('#priceMissBlock').html(priceMissCount);
                 $('#asinMissBlock').html(asinMissCount);
             }
-
         });
     </script>
 </body>
