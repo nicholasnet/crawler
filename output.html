@@ -29,9 +29,11 @@
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <script type="text/javascript">
         $(function() {
+            
             var trs = $('table tr');
 
             if (trs.length > 0) {
+                
                 var priceBlocks = $('td.price'),
                     asinBlocks = $('td.asin'),
                     priceMissCount = 0,
@@ -40,16 +42,20 @@
                 for (var i = 0, len = asinBlocks.length; i < len; i++) {
 
                     if(asinBlocks[i].innerHTML === '') {
+                        
                         $(asinBlocks[i]).addClass('danger');
                         asinMissCount++;
+                        
                     }
                 }
 
                 for (var i = 0, len = priceBlocks.length; i < len; i++) {
 
                     if (priceBlocks[i].innerHTML === '') {
+                        
                         $(priceBlocks[i]).addClass('danger');
                         priceMissCount++;
+                        
                     }
                 }
 
