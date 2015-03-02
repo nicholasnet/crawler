@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css" rel="stylesheet">
+    <style type="text/css">
+     .no-border tr > td {border: 0px none !important;}
+    </style>
+    <title>Output</title>
+</head>
+<body>
+    <div class="panel panel-default"  data-spy="affix">
+        <div class="panel-heading">Summary of the scrapped data</div>
+        <div class="panel-body">
+            <p>Number of Items <span class="label label-success" id="numberOfBlock"></span></p>
+            <p>Unsuccessful ASIN fetch <span class="label label-danger" id="asinMissBlock"></span></p>
+            <p>Unsuccessful Price fetch <span class="label label-danger" id="priceMissBlock"></span></p>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-lg-12" id="output">
+                <!-- OUTPUT -->
+            </div>
+        </div>
+    </div>
+    <script id="template" type="text/x-handlebars-template">
+        {{#each items}}
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <th style="width: 15%">ASIN</th>
+                        <td class="asin">{{asin}}</td>
+                    </tr>
+                    <tr>
+                        <th style="width: 15%">Product Name</th>
+                        <td>{{product_name}}</td>
+                    </tr>
+                    <tr>
+                        <th style="width: 15%">Category</th>
+                        <td>{{{category}}}</td>
+                    </tr>
+                    <tr>
+                        <th style="width: 15%">Price</th>
+                        <td class="price">{{price}}</td>
+                    </tr>
+                    <tr>
+                        <th style="width: 15%">Product Rating</th>
+                        <td>{{{product_rating}}}</td>
+                    </tr>
+                    <tr>
+                        <th style="width: 15%">Customer Avg Rating</th>
+                        <td>{{customer_avg_rating}}</td>
+                    </tr>
+                    <tr>
+                        <th style="width: 15%">Fetched URL</th>
+                        <td><a href="{{{fetched_url}}}">{{{fetched_url}}}</a></td>
+                    </tr>
+                </tbody>
+            </table>
+            <hr />
+        {{/each}}
+    </script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.0/handlebars.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            
+            var source   = $("#template").html();
+            var template = Handlebars.compile(source);
+            
+            var context = {"items": null};
+            $('#output').html(template(context));
+            
+            var trs = $('table tr');
+
+            if (trs.length > 0) {
+                
+                var priceBlocks = $('td.price'),
+                    asinBlocks = $('td.asin'),
+                    priceMissCount = 0,
+                    asinMissCount = 0;
+
+                for (var i = 0, len = asinBlocks.length; i < len; i++) {
+
+                    if(asinBlocks[i].innerHTML === '') {
+                        
+                        $(asinBlocks[i]).addClass('danger');
+                        asinMissCount++;
+                        
+                    }
+                }
+
+                for (var i = 0, len = priceBlocks.length; i < len; i++) {
+
+                    if (priceBlocks[i].innerHTML === '') {
+                        
+                        $(priceBlocks[i]).addClass('danger');
+                        priceMissCount++;
+                        
+                    }
+                }
+
+                $('#numberOfBlock').html($('table').length);
+                $('#priceMissBlock').html(priceMissCount);
+                $('#asinMissBlock').html(asinMissCount);
+            }
+        });
+    </script>
+</body>
+</html>
