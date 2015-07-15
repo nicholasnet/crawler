@@ -1,4 +1,4 @@
-__author__ = 'minty'
+__author__ = 'nicholasnet'
 
 import re
 import grequests
